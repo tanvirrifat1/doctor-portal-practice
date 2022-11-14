@@ -11,6 +11,7 @@ const AppointmentOption = ({ appointmentOption, setTreatment }) => {
                     <p className='text-center'>{slots.length} {slots.length > 1 ? 'spaces' : 'space'}</p>
                     <div className="card-actions justify-center">
                         <label
+                            disabled={slots.length === 0}
                             onClick={() => setTreatment(appointmentOption)}
                             htmlFor="bookingModal"
                             className="btn btn-secondary text-white"
