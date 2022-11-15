@@ -6,12 +6,15 @@ import reportWebVitals from './reportWebVitals';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-day-picker/dist/style.css';
+import AuthProvider from './context/AuthProvider';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
-    <ToastContainer />
+    <AuthProvider>
+      <App />
+      <ToastContainer />
+    </AuthProvider>
   </React.StrictMode>
 );
 

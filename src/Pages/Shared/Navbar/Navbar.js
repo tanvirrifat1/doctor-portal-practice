@@ -1,14 +1,36 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { AuthContext } from '../../../context/AuthProvider';
 
 const Navbar = () => {
+
+    const { user, userSignOut } = useContext(AuthContext)
+
+    const handleLogOut = () => {
+        userSignOut()
+            .then(() => { toast.info('logOut Successful', { autoClose: 500 }) })
+            .catch(er => console.error(er))
+    }
 
     const menuItems = <React.Fragment>
         <li className='font-bold'><Link to="/">Home</Link></li>
         <li className='font-bold'><Link to="/appointment">Appointment</Link></li>
         <li className='font-bold'><Link to="/about">About</Link></li>
-        <li className='font-bold'><Link to="/reviews">Reviews</Link></li>
-        <li className='font-bold'><Link to="/login">Login</Link></li>
+        {user?.uid ?
+            <>
+                <li className='font-bold'><Link to='/dashboard'>Dashboard</Link></li>
+                <li className='font-bold'><button onClick={handleLogOut}>Sign Out</button></li>
+            </>
+            :
+            <li className='font-bold'><Link to='/login'>Login</Link></li>
+        }
+        {user?.photoURL ?
+            <img className=' w-12 h-12 rounded-full dark:bg-gray-500'
+                src={user?.photoURL} alt=""></img>
+            :
+            <></>
+        }
     </React.Fragment>
 
     return (
